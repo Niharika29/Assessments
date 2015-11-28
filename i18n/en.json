@@ -2,9 +2,9 @@
 	"@metadata": {
 		"authors": []
 	},
-	"boilerplate-desc": "This is an example extension",
-	"boilerplate-i18n-welcome": "Welcome to the localization file of the BoilerPlate extension.",
-	"boilerplate-helloworld": "Hello world!",
-	"boilerplate-helloworld-intro": "Welcome to the \"Hello world\" special page of the BoilerPlate extension.",
+	"wikiprojectassessments-desc": "This is an example extension",
+	"wikiprojectassessments-i18n-welcome": "Welcome to the localization file of the RevisionJumper extension.",
+	"wikiprojectassessments-helloworld": "Hello world!",
+	"wikiprojectassessments-helloworld-intro": "Welcome to the \"Hello world\" special page of the RevisionJumper extension.",
 	"helloworld": "Hello world"
 }

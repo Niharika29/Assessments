@@ -6,8 +6,8 @@
 			"Rockyfelle"
 		]
 	},
-	"boilerplate-desc": "Detta är ett exempel-tillägg",
-	"boilerplate-i18n-welcome": "Välkommen till BoilerPlate-tilläggets lokaliseringsfil.",
-	"boilerplate-helloworld": "Hello world!",
+	"RevisionJumper-desc": "Detta är ett exempel-tillägg",
+	"RevisionJumper-i18n-welcome": "Välkommen till RevisionJumper-tilläggets lokaliseringsfil.",
+	"RevisionJumper-helloworld": "Hello world!",
 	"helloworld": "Hej världen"
 }

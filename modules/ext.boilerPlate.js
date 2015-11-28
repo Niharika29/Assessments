@@ -1,10 +1,10 @@
 ( function () {
 
 	/**
-	 * @class mw.boilerPlate
+	 * @class mw.RevisionJumper
 	 * @singleton
 	 */
-	mw.boilerPlate = {
+	mw.RevisionJumper = {
 	};
 
 }() );

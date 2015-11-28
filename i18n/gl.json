@@ -6,9 +6,9 @@
 			"Elisardojm"
 		]
 	},
-	"boilerplate-desc": "Esta é unha extensión de exemplo",
-	"boilerplate-i18n-welcome": "Dámoslle a benvida ao ficheiro de localización da extensión BoilerPlate.",
-	"boilerplate-helloworld": "Ola mundo!",
-	"boilerplate-helloworld-intro": "Benvido á páxina especial \"Ola mundo\" da extensión BoilerPlate.",
+	"RevisionJumper-desc": "Esta é unha extensión de exemplo",
+	"RevisionJumper-i18n-welcome": "Dámoslle a benvida ao ficheiro de localización da extensión RevisionJumper.",
+	"RevisionJumper-helloworld": "Ola mundo!",
+	"RevisionJumper-helloworld-intro": "Benvido á páxina especial \"Ola mundo\" da extensión RevisionJumper.",
 	"helloworld": "Ola mundo"
 }

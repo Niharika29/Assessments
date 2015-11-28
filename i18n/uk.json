@@ -5,9 +5,9 @@
 			"Ата"
 		]
 	},
-	"boilerplate-desc": "Це приклад розширення",
-	"boilerplate-i18n-welcome": "Ласкаво просимо до файлу локалізації  розширення BoilerPlate extension.",
-	"boilerplate-helloworld": "Hello world!",
-	"boilerplate-helloworld-intro": "Ласкаво просимо на спеціальну сторінку «Hello world» розширення BoilerPlate.",
+	"RevisionJumper-desc": "Це приклад розширення",
+	"RevisionJumper-i18n-welcome": "Ласкаво просимо до файлу локалізації  розширення RevisionJumper extension.",
+	"RevisionJumper-helloworld": "Hello world!",
+	"RevisionJumper-helloworld-intro": "Ласкаво просимо на спеціальну сторінку «Hello world» розширення RevisionJumper.",
 	"helloworld": "Hello world"
 }

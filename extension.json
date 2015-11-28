@@ -1,52 +1,43 @@
 {
-	"name": "BoilerPlate",
+	"name": "WikiprojectAssessments",
 	"version": "0.0.0",
 	"author": [
-		"Your Name"
+		"Niharika Kohli"
 	],
-	"url": "https://www.mediawiki.org/wiki/Extension:BoilerPlate",
-	"descriptionmsg": "boilerplate-desc",
-	"license-name": "MIT",
-	"type": "other",
+	"url": "https://www.mediawiki.org/wiki/Extension:WikiprojectAssessments",
+	"descriptionmsg": "wikiprojectassessments-desc",
+	"license-name": "GPL-2.0+",
+	"type": "parserhook",
 	"AutoloadClasses": {
-		"BoilerPlateHooks": "BoilerPlate.hooks.php",
-		"SpecialHelloWorld": "specials/SpecialHelloWorld.php"
+		"WikiprojectAssessmentsHooks": "WikiprojectAssessments.hooks.php",
+		"WikiprojectAssessments": "WikiprojectAssessments.php",
+		"WikiprojectAssessmentsBody": "WikiprojectAssessmentsBody.php"
 	},
 	"config": {
-		"BoilerPlateEnableFoo": true
+		"WikiprojectAssessmentsEnableFoo": true
 	},
 	"ExtensionMessagesFiles": {
-		"BoilerPlateAlias": "BoilerPlate.i18n.alias.php"
+		"WikiprojectAssessmentsAlias": "WikiprojectAssessments.i18n.alias.php",
+		"WikiprojectAssessmentsMagic": "WikiprojectAssessments.i18n.magic.php"
 	},
 	"Hooks": {
-		"NameOfHook": [
-			"BoilerPlateHooks::onNameOfHook"
-		]
+		"ParserFirstCallInit": [
+			"WikiprojectAssessmentsHooks::onParserFirstCallInit"
+		],
+		"LoadExtensionSchemaUpdates": [
+			"WikiprojectAssessmentsHooks::onLoadExtensionSchemaUpdates"
+		],
 	},
 	"MessagesDirs": {
-		"BoilerPlate": [
+		"WikiprojectAssessments": [
 			"i18n"
 		]
 	},
 	"ResourceModules": {
-		"ext.boilerPlate.foo": {
-			"scripts": [
-				"modules/ext.boilerPlate.js",
-				"modules/ext.boilerPlate.foo.js"
-			],
-			"styles": [
-				"modules/ext.boilerPlate.foo.css"
-			],
-			"messages": [],
-			"dependencies": []
-		}
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
-		"remoteExtPath": "examples/BoilerPlate"
-	},
-	"SpecialPages": {
-		"HelloWorld": "SpecialHelloWorld"
+		"remoteExtPath": "examples/WikiprojectAssessments"
 	},
 	"manifest_version": 1
 }
