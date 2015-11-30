@@ -1,15 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Shirayuki",
-			"Umherirrender",
-			"Amire80",
-			"Fhocutt"
+			"Niharika Kohli"
 		]
 	},
 	"wikiprojectassessments-desc": "{{desc|name=WikiprojectAssessments|url=https://www.mediawiki.org/wiki/Extension:WikiprojectAssessments}}",
-	"wikiprojectassessments-i18n-welcome": "Used to greet the user when reading the i18n/??.json file.",
-	"wikiprojectassessments-helloworld": "Page title of the HelloWorld special page.",
-	"wikiprojectassessments-helloworld-intro": "Text displayed on the HelloWorld SpecialPage.",
-	"helloworld": "Text of the link to the HelloWorld special page on SpecialPages."
 }

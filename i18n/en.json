@@ -2,9 +2,5 @@
 	"@metadata": {
 		"authors": []
 	},
-	"wikiprojectassessments-desc": "This is an example extension",
-	"wikiprojectassessments-i18n-welcome": "Welcome to the localization file of the RevisionJumper extension.",
-	"wikiprojectassessments-helloworld": "Hello world!",
-	"wikiprojectassessments-helloworld-intro": "Welcome to the \"Hello world\" special page of the RevisionJumper extension.",
-	"helloworld": "Hello world"
+	"wikiprojectassessments-desc": "This extension is for storing article assessments in a database table with the help of a parser function",
 }
