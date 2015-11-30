@@ -17,7 +17,6 @@
 		"WikiprojectAssessmentsEnableFoo": true
 	},
 	"ExtensionMessagesFiles": {
-		"WikiprojectAssessmentsAlias": "WikiprojectAssessments.i18n.alias.php",
 		"WikiprojectAssessmentsMagic": "WikiprojectAssessments.i18n.magic.php"
 	},
 	"Hooks": {

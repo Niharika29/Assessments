@@ -96,6 +96,7 @@ class WikiprojectAssessmentsBody {
 	/**
 	 * User provided input values
 	 * Validate for strings
+	 * WAIT! Do we need this?
 	 */
 	public function validateInput ( ) {
 
