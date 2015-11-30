@@ -25,7 +25,9 @@ class WikiprojectAssessmentsBody {
 				$newRecord = true;
 				break;
 		}
+		// Make an API request if we know that the record is new or changed
 		$apiRes = WikiprojectAssessmentsBody::makeAPIRequest( $pageTitle );
+		// Extract out the relevant stuff from the truckload of stuff API dumps on us
 		$apiParams = WikiprojectAssessmentsBody::extractParams( $apiRes );
 		$values = array(
 			'pageId' => $apiParams['pageid'],
