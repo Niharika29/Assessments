@@ -1,12 +1,15 @@
 -- Add article assessments table
 
-CREATE TABLE IF NOT EXISTS articleAssessments (
-	pageId          INT(20) NOT NULL,
-	pageName        VARCHAR(255) NOT NULL,
-	namespace       INT(20) NOT NULL,
-	project         VARCHAR(128) DEFAULT NULL,
-	class           VARCHAR(20) DEFAULT NULL,
-	importance      VARCHAR(20) DEFAULT NULL,
-	pageRevision    INT(20) NOT NULL
-);
+CREATE TABLE IF NOT EXISTS /*_*/page_assessments (
+	pa_page_id          INT(10) NOT NULL,
+	pa_page_name        VARCHAR(255) NOT NULL,
+	pa_page_namespace   INT(11) NOT NULL,
+	pa_project          VARCHAR(128) DEFAULT NULL,
+	pa_class            VARCHAR(20) DEFAULT NULL,
+	pa_importance       VARCHAR(20) DEFAULT NULL,
+	pa_page_revision    INT(10) NOT NULL
+)/*$wgDBTableOptions*/;
 
+CREATE UNIQUE INDEX /*i*/pa_project ON /*_*/ page_assessments (pa_project);
+CREATE UNIQUE INDEX /*i*/pa_page_name ON /*_*/ page_assessments (pa_page_name);
+CREATE UNIQUE INDEX /*i*/pa_page_project ON /*_*/ page_assessments (pa_page_name, pa_project);

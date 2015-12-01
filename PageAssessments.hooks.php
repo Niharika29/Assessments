@@ -1,12 +1,12 @@
 <?php
 /**
- * Hooks for WikiprojectAssessments extension
+ * Hooks for PageAssessments extension
  *
  * @file
  * @ingroup Extensions
  */
 
-class WikiprojectAssessmentsHooks {
+class PageAssessmentsHooks {
 
 	/**
 	 * Register the parser function hook
@@ -14,12 +14,12 @@ class WikiprojectAssessmentsHooks {
 	 * @return bool
 	 */
 	public static function onParserFirstCallInit ( &$parser ) {
-		$parser->setFunctionHook( 'review', 'WikiprojectAssessmentsBody::execute' );
+		$parser->setFunctionHook( 'assessment', 'PageAssessmentsBody::execute' );
 	}
 
 	public static function onLoadExtensionSchemaUpdates ( DatabaseUpdater $updater = null ) {
 		$dbDir = __DIR__ . '/db';
-		$updater->addExtensionUpdate( array( 'addtable', 'articleAssessments', "$dbDir/addReviewsTable.sql", true ) );
+		$updater->addExtensionUpdate( array( 'addtable', 'page_assessments', "$dbDir/addReviewsTable.sql", true ) );
 		return true;
 	}
 

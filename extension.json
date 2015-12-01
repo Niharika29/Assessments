@@ -1,34 +1,31 @@
 {
-	"name": "WikiprojectAssessments",
+	"name": "PageAssessments",
 	"version": "0.0.0",
 	"author": [
 		"Niharika Kohli"
 	],
-	"url": "https://www.mediawiki.org/wiki/Extension:WikiprojectAssessments",
-	"descriptionmsg": "wikiprojectassessments-desc",
+	"url": "https://www.mediawiki.org/wiki/Extension:PageAssessments",
+	"descriptionmsg": "page-assessments-desc",
 	"license-name": "GPL-2.0+",
 	"type": "parserhook",
 	"AutoloadClasses": {
-		"WikiprojectAssessmentsHooks": "WikiprojectAssessments.hooks.php",
-		"WikiprojectAssessments": "WikiprojectAssessments.php",
-		"WikiprojectAssessmentsBody": "WikiprojectAssessmentsBody.php"
-	},
-	"config": {
-		"WikiprojectAssessmentsEnableFoo": true
+		"PageAssessmentsHooks": "PageAssessments.hooks.php",
+		"PageAssessments": "PageAssessments.php",
+		"PageAssessmentsBody": "PageAssessmentsBody.php"
 	},
 	"ExtensionMessagesFiles": {
-		"WikiprojectAssessmentsMagic": "WikiprojectAssessments.i18n.magic.php"
+		"PageAssessmentsMagic": "PageAssessments.i18n.magic.php"
 	},
 	"Hooks": {
 		"ParserFirstCallInit": [
-			"WikiprojectAssessmentsHooks::onParserFirstCallInit"
+			"PageAssessmentsHooks::onParserFirstCallInit"
 		],
 		"LoadExtensionSchemaUpdates": [
-			"WikiprojectAssessmentsHooks::onLoadExtensionSchemaUpdates"
+			"PageAssessmentsHooks::onLoadExtensionSchemaUpdates"
 		],
 	},
 	"MessagesDirs": {
-		"WikiprojectAssessments": [
+		"PageAssessments": [
 			"i18n"
 		]
 	},
@@ -36,7 +33,7 @@
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
-		"remoteExtPath": "examples/WikiprojectAssessments"
+		"remoteExtPath": "examples/PageAssessments"
 	},
 	"manifest_version": 1
 }
