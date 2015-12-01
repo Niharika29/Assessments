@@ -1,21 +1,20 @@
 <?php
 /**
- * WikiprojectAssessments extension body
+ * PageAssessments extension body
  *
  * @file
  * @ingroup Extensions
  */
 
-class WikiprojectAssessmentsBody {
+class PageAssessmentsBody {
 
 	/**
 	 * Driver function
 	 */
 	public function execute ( &$parser, $project = '', $class = '', $importance = '' ) {
-		// TODO: Send parameters off for validation
 		$newRecord = false;
 		$pageTitle = $parser->getVariableValue( 'rootpagename' );
-		$exists = WikiprojectAssessmentsBody::checkIfExists( $pageTitle, $project, $class, $importance );
+		$exists = PageAssessmentsBody::checkIfExists( $pageTitle, $project, $class, $importance );
 		switch ( $exists ) {
 			case 'nochange':
 				return; // Yay, no need for the API call
@@ -26,22 +25,22 @@ class WikiprojectAssessmentsBody {
 				break;
 		}
 		// Make an API request if we know that the record is new or changed
-		$apiRes = WikiprojectAssessmentsBody::makeAPIRequest( $pageTitle );
+		$apiRes = PageAssessmentsBody::makeAPIRequest( $pageTitle );
 		// Extract out the relevant stuff from the truckload of stuff API dumps on us
-		$apiParams = WikiprojectAssessmentsBody::extractParams( $apiRes );
+		$apiParams = PageAssessmentsBody::extractParams( $apiRes );
 		$values = array(
-			'pageId' => $apiParams['pageid'],
-			'pageName' => $pageTitle,
-			'namespace' => $apiParams['namespace'],
-			'project' => $project,
-			'class' => $class,
-			'importance' => $importance,
-			'pageRevision' => $apiParams['revisionid']
+			'pa_page_id' => $apiParams['pageid'],
+			'pa_page_name' => $pageTitle,
+			'pa_page_namespace' => $apiParams['namespace'],
+			'pa_project' => $project,
+			'pa_class' => $class,
+			'pa_importance' => $importance,
+			'pa_page_revision' => $apiParams['revisionid']
 		);
 		if ( $newRecord ) {
-			WikiprojectAssessmentsBody::insertRecord( $values );
+			PageAssessmentsBody::insertRecord( $values );
 		} else {
-			WikiprojectAssessmentsBody::updateRecord( $values );
+			PageAssessmentsBody::updateRecord( $values );
 		}
 		return;
 	}
@@ -96,16 +95,6 @@ class WikiprojectAssessmentsBody {
 
 
 	/**
-	 * User provided input values
-	 * Validate for strings
-	 * WAIT! Do we need this?
-	 */
-	public function validateInput ( ) {
-
-	}
-
-
-	/**
 	 * Update record in DB with new values
 	 * @param array $values New values to be entered into the DB
 	 * @return bool True/False on query success/fail
@@ -113,10 +102,10 @@ class WikiprojectAssessmentsBody {
 	public function updateRecord ( $values ) {
 		$dbw = wfGetDB( DB_MASTER );
 		$conds =  array(
-			'pageName' => $values['pageName'],
-			'project'  => $values['project']
+			'pa_page_name' => $values['pa_page_name'],
+			'pa_project'  => $values['pa_project']
 		);
-		$dbw->update( 'articleAssessments', $values, $conds, __METHOD__ );
+		$dbw->update( 'page_assessments', $values, $conds, __METHOD__ );
 		return true;
 	}
 
@@ -128,7 +117,11 @@ class WikiprojectAssessmentsBody {
 	 */
 	public function insertRecord ( $values ) {
 		$dbw = wfGetDB( DB_MASTER );
-		$dbw->insert( 'articleAssessments', $values, __METHOD__ );
+		try {
+			$dbw->insert( 'page_assessments', $values, __METHOD__ );
+		} catch ( Exception $error ) {
+			return false;
+		}
 		return true;
 	}
 
@@ -144,9 +137,9 @@ class WikiprojectAssessmentsBody {
 	public function checkIfExists ( $pageTitle, $project, $class, $importance ) {
 		$dbw = wfGetDB( DB_SLAVE ); // Read only query
 		$res = $dbw->select(
-			'articleAssessments',
+			'page_assessments',
 			'*',
-			'pageName = "' . $pageTitle . '" AND project = "' . $project . '"'
+			'pa_page_name = "' . $pageTitle . '" AND pa_project = "' . $project . '"'
 		);
 		if ( $res ) {
 			foreach ( $res as $row ) {

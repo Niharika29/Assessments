@@ -7,7 +7,7 @@ $magicWords = array();
 
 /** English (English) */
 $magicWords['en'] = array(
-	'review' => array( 0, 'review' ),
+	'assessment' => array( 0, 'assessment' ),
 );
 
 ?>
