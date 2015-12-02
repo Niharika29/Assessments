@@ -13,7 +13,9 @@ class PageAssessmentsBody {
 	 */
 	public function execute ( &$parser, $project = '', $class = '', $importance = '' ) {
 		$newRecord = false;
-		$pageTitle = $parser->getVariableValue( 'rootpagename' );
+		// Title class object for the Main page of this Talk page
+		$pageObj = $parser->getTitle()->getSubjectPage();
+		$pageTitle = $pageObj->getText();
 		$exists = PageAssessmentsBody::checkIfExists( $pageTitle, $project, $class, $importance );
 		switch ( $exists ) {
 			case 'nochange':
@@ -24,18 +26,19 @@ class PageAssessmentsBody {
 				$newRecord = true;
 				break;
 		}
-		// Make an API request if we know that the record is new or changed
-		$apiRes = PageAssessmentsBody::makeAPIRequest( $pageTitle );
-		// Extract out the relevant stuff from the truckload of stuff API dumps on us
-		$apiParams = PageAssessmentsBody::extractParams( $apiRes );
+
+		$pageNamespace = $pageObj->getNamespace();
+		$pageId = $pageObj->getArticleID();
+		$revisionId = $pageObj->getLatestRevID();
+
 		$values = array(
-			'pa_page_id' => $apiParams['pageid'],
+			'pa_page_id' => $pageId,
 			'pa_page_name' => $pageTitle,
-			'pa_page_namespace' => $apiParams['namespace'],
+			'pa_page_namespace' => $pageNamespace,
 			'pa_project' => $project,
 			'pa_class' => $class,
 			'pa_importance' => $importance,
-			'pa_page_revision' => $apiParams['revisionid']
+			'pa_page_revision' => $revisionId
 		);
 		if ( $newRecord ) {
 			PageAssessmentsBody::insertRecord( $values );
@@ -43,54 +46,6 @@ class PageAssessmentsBody {
 			PageAssessmentsBody::updateRecord( $values );
 		}
 		return;
-	}
-
-
-	/**
-	 * Make an API request to obtain page ID, last revision ID and namespace
-	 * @param string $pageTitle Title of the page to query upon
-	 * @return array $data Data returned by the API call
-	 */
-	public function makeAPIRequest ( $pageTitle ) {
-		$params = new DerivativeRequest (
-			new WebRequest(), // $this->getRequest() is preferred except that $this is null?!?
-			array(
-				'action' => 'query',
-				'prop'   => 'revisions',
-				'rvprop' => 'ids',
-				'rvlimit'=> 1,
-				'titles' => $pageTitle,
-				'formatversion' => 2 // Doesn't work, why?
-			),
-			true
-		);
-		$api = new ApiMain( $params );
-		try {
-			$api->execute();
-			$transforms = array( 'strip' => 'all' ); // Remove unnecesary metadata
-			$data = $api->getResult()->getResultData( null, $transforms );
-			return $data;
-		} catch ( UsageException $e ) {
-			// TODO: Add a logging mechanism for errors
-		}
-	}
-
-
-	/**
-	 * Extract useful stuff from the API returned data
-	 * @param array $apiRes Data from the API call
-	 * @return array Values namespace, pageid and revisionid
-	 */
-	public function extractParams ( $apiRes ) {
-		$apiRes = $apiRes['query']['pages'];
-		$pageId = array_keys( $apiRes )[0]; // Ugly hack to get around default API return format tantrums
-		$namespace = $apiRes[$pageId]['ns'];
-		$revisionId = $apiRes[$pageId]['revisions'][0]['revid'];
-		return array(
-			'namespace' => $namespace ? $namespace : '0',
-			'pageid'    => $pageId ? $pageId : '0',
-			'revisionid'=> $revisionId ? $revisionId : '0'
-		);
 	}
 
 
