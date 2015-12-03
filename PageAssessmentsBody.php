@@ -31,6 +31,7 @@ class PageAssessmentsBody {
 		$pageId = $pageObj->getArticleID();
 		$revisionId = $pageObj->getLatestRevID();
 
+		// Compile the array to be inserted to the DB
 		$values = array(
 			'pa_page_id' => $pageId,
 			'pa_page_name' => $pageTitle,
@@ -45,6 +46,7 @@ class PageAssessmentsBody {
 		} else {
 			PageAssessmentsBody::updateRecord( $values );
 		}
+		PageAssessmentsBody::insertLogRecord( $values, $parser->getRevisionUser() );
 		return;
 	}
 
@@ -82,6 +84,30 @@ class PageAssessmentsBody {
 
 
 	/**
+	 * Insert to the logging table
+	 * @param array $values Values to be entered to the DB
+	 * @return bool True/False on query success/fail
+	 */
+	public function insertLogRecord ( $values, $user ) {
+		$logValues = array(
+			'pa_page_id' => $values['pa_page_id'],
+			'pa_user_id' => $user,
+			'pa_page_revision' => $values['pa_page_revision'],
+			'pa_project' => $values['pa_project'],
+			'pa_class' => $values['pa_class'],
+			'pa_importance' => $values['pa_importance']
+		);
+		$dbw = wfGetDB( DB_MASTER );
+		try {
+			$dbw->insert( 'page_assessments_log', $logValues, __METHOD__ );
+		} catch ( Exception $error ) {
+			return false;
+		}
+		return true;
+	}
+
+
+	/**
 	 * Check if the record already exists and is changed
 	 * @param string $pageTitle Title of the page
 	 * @param string $project Name of the Wikiproject associated
@@ -104,9 +130,8 @@ class PageAssessmentsBody {
 					return 'change';   // Record has changed
 				}
 			}
-		} else {
-			return 'noexist'; // New record
 		}
+		return 'noexist'; // New record
 	}
 
 }

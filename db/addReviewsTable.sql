@@ -10,6 +10,6 @@ CREATE TABLE IF NOT EXISTS /*_*/page_assessments (
 	pa_page_revision    INT(10) NOT NULL
 )/*$wgDBTableOptions*/;
 
-CREATE UNIQUE INDEX /*i*/pa_project ON /*_*/ page_assessments (pa_project);
-CREATE UNIQUE INDEX /*i*/pa_page_name ON /*_*/ page_assessments (pa_page_name);
+CREATE INDEX /*i*/pa_project ON /*_*/ page_assessments (pa_project);
+CREATE INDEX /*i*/pa_page_name ON /*_*/ page_assessments (pa_page_name);
 CREATE UNIQUE INDEX /*i*/pa_page_project ON /*_*/ page_assessments (pa_page_name, pa_project);

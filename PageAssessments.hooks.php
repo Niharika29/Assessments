@@ -20,6 +20,7 @@ class PageAssessmentsHooks {
 	public static function onLoadExtensionSchemaUpdates ( DatabaseUpdater $updater = null ) {
 		$dbDir = __DIR__ . '/db';
 		$updater->addExtensionUpdate( array( 'addtable', 'page_assessments', "$dbDir/addReviewsTable.sql", true ) );
+		$updater->addExtensionUpdate( array( 'addtable', 'page_assessments_log', "$dbDir/addLoggingTable.sql", true ) );
 		return true;
 	}
 
