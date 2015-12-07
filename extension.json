@@ -22,14 +22,12 @@
 		],
 		"LoadExtensionSchemaUpdates": [
 			"PageAssessmentsHooks::onLoadExtensionSchemaUpdates"
-		],
+		]
 	},
 	"MessagesDirs": {
 		"PageAssessments": [
 			"i18n"
 		]
-	},
-	"ResourceModules": {
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "",

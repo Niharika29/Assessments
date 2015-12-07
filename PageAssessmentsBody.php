@@ -19,7 +19,7 @@ class PageAssessmentsBody {
 		$exists = PageAssessmentsBody::checkIfExists( $pageTitle, $project, $class, $importance );
 		switch ( $exists ) {
 			case 'nochange':
-				return; // Yay, no need for the API call
+				return;
 			case 'change':
 				break;
 			default:
@@ -46,7 +46,8 @@ class PageAssessmentsBody {
 		} else {
 			PageAssessmentsBody::updateRecord( $values );
 		}
-		PageAssessmentsBody::insertLogRecord( $values, $parser->getRevisionUser() );
+		$values['pa_user_id'] = $parser->getRevisionUser();
+		PageAssessmentsBody::insertLogRecord( $values );
 		return;
 	}
 
@@ -74,11 +75,7 @@ class PageAssessmentsBody {
 	 */
 	public function insertRecord ( $values ) {
 		$dbw = wfGetDB( DB_MASTER );
-		try {
-			$dbw->insert( 'page_assessments', $values, __METHOD__ );
-		} catch ( Exception $error ) {
-			return false;
-		}
+		$dbw->insert( 'page_assessments', $values, __METHOD__ );
 		return true;
 	}
 
@@ -88,21 +85,18 @@ class PageAssessmentsBody {
 	 * @param array $values Values to be entered to the DB
 	 * @return bool True/False on query success/fail
 	 */
-	public function insertLogRecord ( $values, $user ) {
+	public function insertLogRecord ( $values ) {
 		$logValues = array(
 			'pa_page_id' => $values['pa_page_id'],
-			'pa_user_id' => $user,
+			'pa_user_id' => $values['pa_user'],
 			'pa_page_revision' => $values['pa_page_revision'],
 			'pa_project' => $values['pa_project'],
 			'pa_class' => $values['pa_class'],
-			'pa_importance' => $values['pa_importance']
+			'pa_importance' => $values['pa_importance'],
+			'pa_timestamp' => $values['pa_timestamp']
 		);
 		$dbw = wfGetDB( DB_MASTER );
-		try {
-			$dbw->insert( 'page_assessments_log', $logValues, __METHOD__ );
-		} catch ( Exception $error ) {
-			return false;
-		}
+		$dbw->insert( 'page_assessments_log', $logValues, __METHOD__ );
 		return true;
 	}
 
