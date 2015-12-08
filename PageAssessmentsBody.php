@@ -11,7 +11,7 @@ class PageAssessmentsBody {
 	/**
 	 * Driver function
 	 */
-	public function execute ( &$parser, $project = '', $class = '', $importance = '' ) {
+	public static function execute ( &$parser, $project = '', $class = '', $importance = '' ) {
 		$newRecord = false;
 		// Title class object for the Main page of this Talk page
 		$pageObj = $parser->getTitle()->getSubjectPage();
@@ -57,7 +57,7 @@ class PageAssessmentsBody {
 	 * @param array $values New values to be entered into the DB
 	 * @return bool True/False on query success/fail
 	 */
-	public function updateRecord ( $values ) {
+	public static function updateRecord ( $values ) {
 		$dbw = wfGetDB( DB_MASTER );
 		$conds =  array(
 			'pa_page_name' => $values['pa_page_name'],
@@ -73,7 +73,7 @@ class PageAssessmentsBody {
 	 * @param array $values New values to be entered into the DB
 	 * @return bool True/False on query success/fail
 	 */
-	public function insertRecord ( $values ) {
+	public static function insertRecord ( $values ) {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->insert( 'page_assessments', $values, __METHOD__ );
 		return true;
@@ -85,7 +85,7 @@ class PageAssessmentsBody {
 	 * @param array $values Values to be entered to the DB
 	 * @return bool True/False on query success/fail
 	 */
-	public function insertLogRecord ( $values ) {
+	public static function insertLogRecord ( $values ) {
 		$logValues = array(
 			'pa_page_id' => $values['pa_page_id'],
 			'pa_user_id' => $values['pa_user'],
@@ -93,7 +93,7 @@ class PageAssessmentsBody {
 			'pa_project' => $values['pa_project'],
 			'pa_class' => $values['pa_class'],
 			'pa_importance' => $values['pa_importance'],
-			'pa_timestamp' => $values['pa_timestamp']
+			'pa_timestamp' => wfTimestampNow()
 		);
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->insert( 'page_assessments_log', $logValues, __METHOD__ );
@@ -109,7 +109,7 @@ class PageAssessmentsBody {
 	 * @param string $importance Importance attribute of the review
 	 * @return string nochange|change|noexist No changes/Changes to existing record/New record
 	 */
-	public function checkIfExists ( $pageTitle, $project, $class, $importance ) {
+	public static function checkIfExists ( $pageTitle, $project, $class, $importance ) {
 		$dbw = wfGetDB( DB_SLAVE ); // Read only query
 		$res = $dbw->select(
 			'page_assessments',
@@ -118,9 +118,9 @@ class PageAssessmentsBody {
 		);
 		if ( $res ) {
 			foreach ( $res as $row ) {
-				if ( $row->class == $class && $row->importance == $importance ) {
+				if ( $row->pa_class == $class && $row->pa_importance == $importance ) {
 					return 'nochange'; // Record is same as new
-				} elseif ( $row->class != $class || $row->importance != $importance ) {
+				} elseif ( $row->pa_class != $class || $row->pa_importance != $importance ) {
 					return 'change';   // Record has changed
 				}
 			}
